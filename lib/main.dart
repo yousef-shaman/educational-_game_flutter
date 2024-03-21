@@ -1,139 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'custom_tab_bar.dart'; // Import the custom tab bar
-
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       title: 'Student Profile',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const ProfilePage(),
-      // home: TabBarDemo(), // Use the TabBarDemo from the custom_tab_bar file
+      home: const HomePage(),
     );
-    
   }
 }
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    Screen1(),
+    Screen2(),
+    Screen3(),
+  ];
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(foregroundColor: Color.fromARGB(255, 255, 255, 255),
-      toolbarHeight: 15,),
-      backgroundColor: Colors.grey[900],
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Card(
-          color: Colors.grey[800],
-          margin: EdgeInsets.all(15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),  
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Screen 1',
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 24),
-                _buildProfileImage(context),
-                const SizedBox(height: 24),
-                _buildTabBar(),
-                const SizedBox(height: 24),
-                _buildProgressIndicator(),
-              ],
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Screen 2',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Screen 3',
+          ),
+        ],
       ),
     );
   }
+}
 
-  Widget _buildHeader() {
-    return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text('Student Profile -P', style: TextStyle(color: Colors.white70)),
-        Icon(FontAwesomeIcons.cog, color: Colors.white70),
-      ],
+class Screen1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Screen 1'),
     );
   }
+}
 
-  Widget _buildProfileImage(BuildContext context) {
-    return const Column(
-      children: [
-        CircleAvatar(
-          radius: 48,
-          backgroundImage: NetworkImage('https://placehold.co/96x96'),
-        ),
-        SizedBox(height: 8),
-        Text('SOMEONE OUTSIDER', style: TextStyle(fontWeight: FontWeight.bold)),
-      ],
+class Screen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Screen 2'),
     );
   }
+}
 
-  Widget _buildTabBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        _buildTab('Data'),
-        _buildTab('Leaderboard'),
-        _buildTab('Massr'),
-      ],
-    );
-  }
-
-  Widget _buildTab(String title) {
-    return Text(title, style: const TextStyle(color: Colors.white70));
-  }
-
-  Widget _buildProgressIndicator() {
-    return Row(
-      children: [
-        Container(
-          width: 24,
-          height: 24,
-          decoration: BoxDecoration(
-            color: Colors.blue[600],
-            shape: BoxShape.circle,
-          ),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: 16,
-              height: 16,
-              decoration: BoxDecoration(
-                color: Colors.blue[400],
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            height: 4,
-            margin: const EdgeInsets.only(left: 8),
-            decoration: BoxDecoration(
-              color: Colors.grey[700],
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-        ),
-      ],
+class Screen3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Screen 3'),
     );
   }
 }

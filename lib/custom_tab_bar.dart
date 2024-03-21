@@ -5,7 +5,8 @@ class TabBarDemo extends StatefulWidget {
   _TabBarDemoState createState() => _TabBarDemoState();
 }
 
-class _TabBarDemoState extends State<TabBarDemo> with SingleTickerProviderStateMixin {
+class _TabBarDemoState extends State<TabBarDemo>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -51,7 +52,8 @@ class TabItem extends StatelessWidget {
   final IconData icon;
   final String title;
 
-  const TabItem({Key? key, required this.icon, required this.title}) : super(key: key);
+  const TabItem({Key? key, required this.icon, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
