@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TabBarDemo extends StatefulWidget {
+  const TabBarDemo({super.key});
+
   @override
   _TabBarDemoState createState() => _TabBarDemoState();
 }
@@ -19,15 +21,15 @@ class _TabBarDemoState extends State<TabBarDemo>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Custom Tab Bar'),
+        title: const Text('Custom Tab Bar'),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(55),
+          preferredSize: const Size.fromHeight(55),
           child: Align(
             alignment: Alignment.centerLeft,
             child: TabBar(
               controller: _tabController,
-              indicator: BoxDecoration(),
-              tabs: [
+              indicator: const BoxDecoration(),
+              tabs: const [
                 TabItem(icon: Icons.home, title: 'Home'),
                 TabItem(icon: Icons.search, title: 'Search'),
                 TabItem(icon: Icons.person, title: 'Profile'),
@@ -38,7 +40,7 @@ class _TabBarDemoState extends State<TabBarDemo>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
+        children: const [
           Icon(Icons.home),
           Icon(Icons.search),
           Icon(Icons.person),
@@ -52,12 +54,11 @@ class TabItem extends StatelessWidget {
   final IconData icon;
   final String title;
 
-  const TabItem({Key? key, required this.icon, required this.title})
-      : super(key: key);
+  const TabItem({super.key, required this.icon, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 55,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
