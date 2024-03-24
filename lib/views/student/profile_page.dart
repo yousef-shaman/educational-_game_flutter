@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_flutter/views/student/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -36,7 +37,7 @@ class Profile extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildHeader(),
+                _buildHeader(context),
                 const SizedBox(height: 24),
                 _buildProfileImage(context),
                 const SizedBox(height: 24),
@@ -50,13 +51,13 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text('Student Profile -P', style: TextStyle(color: Colors.white70)),
         IconButton(onPressed: (){
-          
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsPage()));
         }, icon: const Icon(Icons.settings, color: Colors.white70)),
       ],
     );
