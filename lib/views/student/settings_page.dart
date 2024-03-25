@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final data;
+  const SettingsPage({super.key, this.data});
 
 @override
  State<SettingsPage> createState() => _SettingsPageState();
