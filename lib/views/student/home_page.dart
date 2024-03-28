@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
     {"AreaName": "Algorithm", "AreaDescription": "------------------"},
     {"AreaName": "Database", "AreaDescription": "------------------"},
   ];
-  final APISevice apisevice = APISevice();
+  final APISevice apisevice = const APISevice();
 
   @override
   Widget build(BuildContext context) {

@@ -64,17 +64,17 @@ class _ViewerPageState extends State<ViewerPage> {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: 300,
                   child: Card(
                     color: Colors.teal,
-                    margin: EdgeInsets.all(15),
+                    margin: const EdgeInsets.all(15),
 
                     child: Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Text(
                         widget.dataOfTopics["body"],
-                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),

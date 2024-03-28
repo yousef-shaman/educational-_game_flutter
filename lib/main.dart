@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       home: isStudent ? const StudentMainPage() : const AdminMainPage(),
     routes:{
-      "student_main_page" : (context) => StudentMainPage(),
-      "home_page" : (context) => HomePage(),
+      "student_main_page" : (context) => const StudentMainPage(),
+      "home_page" : (context) => const HomePage(),
     }  
     );
   }
