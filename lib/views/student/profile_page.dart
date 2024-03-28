@@ -33,7 +33,7 @@ class Profile extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24,5,24,24),
+            padding: const EdgeInsets.fromLTRB(24, 5, 24, 24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -55,10 +55,14 @@ class Profile extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Student Profile -P', style: TextStyle(color: Colors.white70)),
-        IconButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsPage()));
-        }, icon: const Icon(Icons.settings, color: Colors.white70)),
+        const Text('Student Profile -P',
+            style: TextStyle(color: Colors.white70)),
+        IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SettingsPage()));
+            },
+            icon: const Icon(Icons.settings, color: Colors.white70)),
       ],
     );
   }
@@ -71,7 +75,8 @@ class Profile extends StatelessWidget {
           backgroundImage: AssetImage("images/man_4140048.png"),
         ),
         SizedBox(height: 15),
-        Text('SOMEONE OUTSIDER', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        Text('SOMEONE OUTSIDER',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ],
     );
   }

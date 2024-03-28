@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project_flutter/views/faculty/main_page.dart';
+import 'package:graduation_project_flutter/views/student/home_page.dart';
 import 'package:graduation_project_flutter/views/student/main_page.dart';
 
 void main() {
@@ -16,10 +17,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Student Profile',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: isStudent ? const StudentMainPage() : const AdminMainPage(),
+    routes:{
+      "student_main_page" : (context) => StudentMainPage(),
+      "home_page" : (context) => HomePage(),
+    }  
     );
   }
 }
