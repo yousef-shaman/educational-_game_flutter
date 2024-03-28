@@ -15,16 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Student Profile',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: isStudent ? const StudentMainPage() : const AdminMainPage(),
-    routes:{
-      "student_main_page" : (context) => StudentMainPage(),
-      "home_page" : (context) => HomePage(),
-    }  
-    );
+        title: 'Student Profile',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: isStudent ? const StudentMainPage() : const AdminMainPage(),
+        routes: {
+          "student_main_page": (context) => const StudentMainPage(),
+          "home_page": (context) => const HomePage(),
+        });
   }
 }
