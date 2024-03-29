@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project_flutter/widgets/custom_text_form_field.dart';
 
 class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
