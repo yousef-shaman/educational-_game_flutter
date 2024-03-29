@@ -22,19 +22,19 @@ class _ViewerPageState extends State<ViewerPage> {
             leading: IconButton(
                 onPressed: () {
                   AwesomeDialog(
-            dismissOnTouchOutside: false,        
-            context: context,
-            dialogType: DialogType.warning,
-            animType: AnimType.rightSlide,
-            title: 'Are you sure !!',
-            desc: 'Dialog description here.............',
-            btnCancelOnPress: () {},
-            btnOkOnPress: () {
-              Navigator.of(context).pop();
-            },
-            ).show();
-                  
-                }, icon: const Icon(Icons.arrow_back)),
+                    dismissOnTouchOutside: false,
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.rightSlide,
+                    title: 'متاكد يالحبيب؟',
+                    desc: 'Dialog description here.............',
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      Navigator.of(context).pop();
+                    },
+                  ).show();
+                },
+                icon: const Icon(Icons.arrow_back)),
             title: const Text('Viewer'),
             toolbarHeight: 80, // Adjusted to give enough space for the tabs
             bottom: const TabBar(
@@ -69,12 +69,14 @@ class _ViewerPageState extends State<ViewerPage> {
                   child: Card(
                     color: Colors.teal,
                     margin: const EdgeInsets.all(15),
-
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
                         widget.dataOfTopics["body"],
-                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
