@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.7.0
   google_nav_bar: ^5.0.6
-  get: ^4.3.8 # use the latest version compatible with your Flutter SDK version
+  get: ^4.6.6 # use the latest version compatible with your Flutter SDK version
   leak_tracker: 10.0.0
 
 
@@ -41,6 +41,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   awesome_dialog: ^3.2.0
   http: ^1.2.1
+  flutter_speed_dial: ^7.0.0
+  connectivity_plus: ^6.0.2
+  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:

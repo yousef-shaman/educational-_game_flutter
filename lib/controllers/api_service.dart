@@ -1,25 +1,30 @@
 import 'dart:convert';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
-import 'package:flutter/material.dart';
+class APIService {
+  // Base URL for your API
+  final String baseUrl = 'https://jsonplaceholder.typicode.com';
 
-class APISevice extends StatefulWidget {
-  const APISevice({super.key});
-
-  Future<List> getData() async {
-    var response =
-        await get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
-    List responsebody = jsonDecode(response.body);
-    return responsebody;
+  // Function to get user data
+  Future<List<dynamic>> getRequestsData() async {
+    var url = Uri.parse('$baseUrl/users');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as List<dynamic>;
+    } else {
+      throw Exception('Failed to load users');
+    }
   }
 
-  @override
-  State<APISevice> createState() => _APISeviceState();
-}
-
-class _APISeviceState extends State<APISevice> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
+  // Function to get posts data
+  Future<List<dynamic>> getAreaData() async {
+    var url = Uri.parse('$baseUrl/posts');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as List<dynamic>;
+    } else {
+      throw Exception('Failed to load posts');
+    }
   }
 }
+

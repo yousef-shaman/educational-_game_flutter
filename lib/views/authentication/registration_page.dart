@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_flutter/widgets/custom_dropdown.dart';
 import 'package:graduation_project_flutter/widgets/custom_text_form_field.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
 
   @override
-  _RegistrationPageState createState() => _RegistrationPageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
@@ -36,48 +37,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
     super.dispose();
   }
 
-  DropdownButtonFormField<String> _buildDropdownButtonFormField({
-    required List<String> items,
-    String? selectedValue,
-    required ValueChanged<String?> onChanged,
-    required String hint,
-  }) {
-    return DropdownButtonFormField<String>(
-      value: selectedValue,
-      items: items.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        labelText: hint,
-        border: const OutlineInputBorder(),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Registration Form -P'),
-      //   backgroundColor: Colors.black87,
-      // ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'REGISTRATION FORM',
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.0,
-                ),
+                style: Theme.of(context).textTheme.displayLarge
               ),
               const SizedBox(height: 20),
               Row(
@@ -109,14 +82,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 10),
-              _buildDropdownButtonFormField(
+              CustomDropdown(
                 items: _faculties,
                 selectedValue: _selectedFaculty,
                 onChanged: (value) => setState(() => _selectedFaculty = value),
                 hint: 'Select the Faculty',
               ),
               const SizedBox(height: 10),
-              _buildDropdownButtonFormField(
+              CustomDropdown(
                 items: _majors,
                 selectedValue: _selectedMajor,
                 onChanged: (value) => setState(() => _selectedMajor = value),

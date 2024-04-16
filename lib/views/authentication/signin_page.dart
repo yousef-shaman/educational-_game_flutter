@@ -5,7 +5,7 @@ class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
@@ -23,23 +23,17 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    // The rest of your widget build method
     return Scaffold(
-      // appBar: AppBar(title: const Text('Sign in -P')),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'SIGN IN',
               textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.displayLarge
             ),
             const SizedBox(height: 40),
             CustomTextFormField(

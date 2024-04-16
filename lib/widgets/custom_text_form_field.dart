@@ -1,9 +1,9 @@
-// custom_text_form_field.dart
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
+  final int? maxLines;
   final TextInputType keyboardType;
   final bool obscureText;
   final IconData? prefixIcon;
@@ -20,16 +20,20 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.onChanged,
-    this.controller,
+    this.controller, 
+    this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
+      style: TextField.materialMisspelledTextStyle,
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
+
         labelText: labelText,
         hintText: hintText,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
