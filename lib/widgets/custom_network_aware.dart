@@ -55,7 +55,7 @@ class DataBuilderWidget<T> extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
-          return dataBuilder(context, snapshot.data!);
+          return dataBuilder(context, snapshot.data as T); //this change after I use dart fix.
         } else {
           return const Center(child: Text('No data found'));
         }

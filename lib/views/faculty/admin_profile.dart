@@ -36,6 +36,7 @@ class _AdminProfilePageState extends State<AdminProfilePage>
             width: 250,
             // padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.all(10),
+            borderRadius: BorderRadius.circular(20),
             content: Padding(
               padding: const EdgeInsets.fromLTRB(24, 5, 24, 24),
               child: Column(

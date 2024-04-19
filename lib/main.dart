@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_flutter/constants.dart';
 import 'package:graduation_project_flutter/undefined_route.dart';
 import 'package:graduation_project_flutter/views/faculty/add_area.dart';
 import 'package:graduation_project_flutter/views/faculty/add_event.dart';
@@ -20,7 +21,7 @@ const globalBackgroundGradient = BoxDecoration(
 
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xffffffff),Color(0xffbfdbf7)], // Your gradient colors here
+    colors: [neutralA, neutralB], // Your gradient colors here
   ),
 );
 class MyApp extends StatefulWidget {
