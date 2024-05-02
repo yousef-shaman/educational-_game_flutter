@@ -61,6 +61,7 @@ class _AddEventState extends State<AddEvent> {
               CustomTextFormField(
                 maxLines: 4,
                 labelText: 'Event Description',
+                keyboardType: TextInputType.multiline,
                 hintText: 'Enter the Event Description',
                 controller: _eventDescriptionController,
               ),

@@ -1,59 +1,44 @@
 // To parse this JSON data, do
 //
-//     final student = studentFromJson(jsonString);
+//     final systemAdmin = systemAdminFromJson(jsonString);
 
 import 'dart:convert';
 
-Student studentFromJson(String str) => Student.fromJson(json.decode(str));
+SystemAdmin systemAdminFromJson(String str) => SystemAdmin.fromJson(json.decode(str));
 
-String studentToJson(Student data) => json.encode(data.toJson());
+String systemAdminToJson(SystemAdmin data) => json.encode(data.toJson());
 
-class Student {
+class SystemAdmin {
     String? firstName;
     String? lastName;
     DateTime? birthDate;
     String? gender;
-    double? level;
-    int? gpa;
-    double? earnedPoints;
 
-    Student({
+    SystemAdmin({
         this.firstName,
         this.lastName,
         this.birthDate,
         this.gender,
-        this.level,
-        this.gpa,
-        this.earnedPoints,
     });
 
-    Student copyWith({
+    SystemAdmin copyWith({
         String? firstName,
         String? lastName,
         DateTime? birthDate,
         String? gender,
-        double? level,
-        int? gpa,
-        double? earnedPoints,
     }) => 
-        Student(
+        SystemAdmin(
             firstName: firstName ?? this.firstName,
             lastName: lastName ?? this.lastName,
             birthDate: birthDate ?? this.birthDate,
             gender: gender ?? this.gender,
-            level: level ?? this.level,
-            gpa: gpa ?? this.gpa,
-            earnedPoints: earnedPoints ?? this.earnedPoints,
         );
 
-    factory Student.fromJson(Map<String, dynamic> json) => Student(
+    factory SystemAdmin.fromJson(Map<String, dynamic> json) => SystemAdmin(
         firstName: json["first_name"],
         lastName: json["last_name"],
         birthDate: json["birth_date"] == null ? null : DateTime.parse(json["birth_date"]),
         gender: json["gender"],
-        level: json["level"]?.toDouble(),
-        gpa: json["gpa"],
-        earnedPoints: json["earned_points"]?.toDouble(),
     );
 
     Map<String, dynamic> toJson() => {
@@ -61,8 +46,5 @@ class Student {
         "last_name": lastName,
         "birth_date": "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
         "gender": gender,
-        "level": level,
-        "gpa": gpa,
-        "earned_points": earnedPoints,
     };
 }

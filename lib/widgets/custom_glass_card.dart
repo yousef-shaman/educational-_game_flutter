@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class CustomGlassCard extends StatelessWidget {
-  final Widget content;
+  final Widget child;
   final double? width;
   final double? height;
   final BorderRadiusGeometry borderRadius;
@@ -12,7 +12,7 @@ class CustomGlassCard extends StatelessWidget {
 
   const CustomGlassCard({
     super.key,
-    required this.content,
+    required this.child,
     this.width,
     this.height,
     BorderRadiusGeometry? borderRadius,
@@ -36,7 +36,7 @@ class CustomGlassCard extends StatelessWidget {
             borderRadius: borderRadius,
             border: Border.all(width: 2, color: Colors.white.withOpacity(0.3)),
           ),
-          child: content,
+          child: child,
         ),
       ),
     );

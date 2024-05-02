@@ -1,61 +1,98 @@
+// To parse this JSON data, do
+//
+//     final topicArea = topicAreaFromJson(jsonString);
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:graduation_project_flutter/widgets/custom_glass_card.dart';
 
-class Topic {
-  final int topicID;
-  final int? areaID;
-  final int? eventID;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String topicTitle;
-  final String topicContent;
-  final String examples;
-  final String sources;
+TopicArea topicAreaFromJson(String str) => TopicArea.fromJson(json.decode(str));
 
-  Topic({
-    required this.topicID,
-    this.areaID,
-    this.eventID,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.topicTitle,
-    required this.topicContent,
-    required this.examples,
-    required this.sources,
-  });
+String topicAreaToJson(TopicArea data) => json.encode(data.toJson());
 
-  Map<String, dynamic> toMap() {
-    var map = {
-      'topicID': topicID,
-      'areaID': areaID,
-      'eventID': eventID,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'topicTitle': topicTitle,
-      'topicContent': topicContent,
-      'examples': examples,
-      'sources': sources,
-    };
+class TopicArea {
+    String? topicTitle;
+    String? source;
+    String? description;
 
-    return map;
-  }
+    TopicArea({
+        this.topicTitle,
+        this.source,
+        this.description,
+    });
 
-  factory Topic.fromMap(Map<String, dynamic> map) {
-    return Topic(
-      topicID: map['topicID'],
-      areaID: map['areaID'],
-      eventID: map['eventID'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      topicTitle: map['topicTitle'],
-      topicContent: map['topicContent'],
-      examples: map['examples'],
-      sources: map['sources'],
+    TopicArea copyWith({
+        String? topicTitle,
+        String? source,
+        String? description,
+    }) => 
+        TopicArea(
+            topicTitle: topicTitle ?? this.topicTitle,
+            source: source ?? this.source,
+            description: description ?? this.description,
+        );
+
+    factory TopicArea.fromJson(Map<String, dynamic> json) => TopicArea(
+        topicTitle: json["topic_title"],
+        source: json["source"],
+        description: json["description"],
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "topic_title": topicTitle,
+        "source": source,
+        "description": description,
+    };
 }
 
+//---------------------------------------------------------------
 
+// To parse this JSON data, do
+//
+//     final topicEvent = topicEventFromJson(jsonString);
+
+
+TopicEvent topicEventFromJson(String str) => TopicEvent.fromJson(json.decode(str));
+
+String topicEventToJson(TopicEvent data) => json.encode(data.toJson());
+
+class TopicEvent {
+    String? topicTitle;
+    String? source;
+    String? description;
+
+    TopicEvent({
+        this.topicTitle,
+        this.source,
+        this.description,
+    });
+
+    TopicEvent copyWith({
+        String? topicTitle,
+        String? source,
+        String? description,
+    }) => 
+        TopicEvent(
+            topicTitle: topicTitle ?? this.topicTitle,
+            source: source ?? this.source,
+            description: description ?? this.description,
+        );
+
+    factory TopicEvent.fromJson(Map<String, dynamic> json) => TopicEvent(
+        topicTitle: json["topic_title"],
+        source: json["source"],
+        description: json["description"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "topic_title": topicTitle,
+        "source": source,
+        "description": description,
+    };
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 class TopicBuilder {
 
@@ -82,7 +119,7 @@ class TopicBuilder {
         CustomGlassCard(
           margin: const EdgeInsets.all(15),
           borderRadius: BorderRadius.circular(20),
-          content: Padding(
+          child: Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
                 dataOfTopics["body"] ?? "No Content",
@@ -119,7 +156,7 @@ class TopicBuilder {
         CustomGlassCard(
           margin: const EdgeInsets.all(15),
           borderRadius: BorderRadius.circular(20),
-          content: Padding(
+          child: Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
                 dataOfTopics["body"] ?? "No Content",
@@ -133,5 +170,3 @@ class TopicBuilder {
     );
   }
 }
-
-

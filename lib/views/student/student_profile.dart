@@ -36,7 +36,7 @@ class _StudentProfileState extends State<StudentProfile>
             width: 250,
             // padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.all(10),
-            content: Padding(
+            child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 5, 24, 24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

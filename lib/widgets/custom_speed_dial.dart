@@ -8,23 +8,25 @@ class CustomSpeedDial extends StatelessWidget {
   final Function()? onTap;
   final Widget? child;
   final String? label;
+  final IconData? icon;
 
   const CustomSpeedDial({
     super.key,
     this.animatedIcon,
     this.backgroundColor,
-    required this.children,
+    this.children = const [],
     this.onTap,
     this.child,
-    this.label,
+    this.label, this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
+      icon: icon,
       closeManually: false,
       renderOverlay: false,
-      animatedIcon: animatedIcon ?? AnimatedIcons.menu_close, // the animatedIcon parameter, with a default value.
+      animatedIcon: animatedIcon, // the animatedIcon parameter, with a default value.
       backgroundColor: backgroundColor ?? Colors.white, // Provide a default value.
       spacing: 5,
       spaceBetweenChildren: 10,

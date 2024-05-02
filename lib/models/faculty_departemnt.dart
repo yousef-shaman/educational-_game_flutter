@@ -1,44 +1,50 @@
-class FacultyDepartment {
-  final int facultyDepartmentID;
-  final DateTime dateCreated;
-  final DateTime updatedAt;
-  final int? parentID;
-  final String name;
-  final String? description;
+// To parse this JSON data, do
+//
+//     final facultyDepartmen = facultyDepartmenFromJson(jsonString);
 
-  FacultyDepartment({
-    required this.facultyDepartmentID,
-    required this.dateCreated,
-    required this.updatedAt,
-    this.parentID,
-    required this.name,
-    this.description,
-  });
+import 'dart:convert';
 
-  Map<String, dynamic> toMap() {
-    var map = {
-      'facultyDepartmentID': facultyDepartmentID,
-      'dateCreated': dateCreated.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'name': name,
-      'description': description,
-    };
+FacultyDepartmen facultyDepartmenFromJson(String str) => FacultyDepartmen.fromJson(json.decode(str));
 
-    if (parentID != null) {
-      map['parentID'] = parentID;
-    }
+String facultyDepartmenToJson(FacultyDepartmen data) => json.encode(data.toJson());
 
-    return map;
-  }
+class FacultyDepartmen {
+    String? departmentName;
+    String? facultyName;
+    String? description;
+    bool? isActive;
 
-  factory FacultyDepartment.fromMap(Map<String, dynamic> map) {
-    return FacultyDepartment(
-      facultyDepartmentID: map['facultyDepartmentID'],
-      dateCreated: DateTime.parse(map['dateCreated']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      parentID: map['parentID'],
-      name: map['name'],
-      description: map['description'],
+    FacultyDepartmen({
+        this.departmentName,
+        this.facultyName,
+        this.description,
+        this.isActive,
+    });
+
+    FacultyDepartmen copyWith({
+        String? departmentName,
+        String? facultyName,
+        String? description,
+        bool? isActive,
+    }) => 
+        FacultyDepartmen(
+            departmentName: departmentName ?? this.departmentName,
+            facultyName: facultyName ?? this.facultyName,
+            description: description ?? this.description,
+            isActive: isActive ?? this.isActive,
+        );
+
+    factory FacultyDepartmen.fromJson(Map<String, dynamic> json) => FacultyDepartmen(
+        departmentName: json["department_name"],
+        facultyName: json["faculty_name"],
+        description: json["description"],
+        isActive: json["is_active"],
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "department_name": departmentName,
+        "faculty_name": facultyName,
+        "description": description,
+        "is_active": isActive,
+    };
 }

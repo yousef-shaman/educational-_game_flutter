@@ -1,51 +1,90 @@
-class StudentPerformance {
-  final int performanceID;
-  final int studentID;
-  final int achievementID;
-  final int pointsEarned;
-  final DateTime awardDate;
-  final DateTime earnedDate;
-  final DateTime earnedTime;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+// To parse this JSON data, do
+//
+//     final studentProfermenceArea = studentProfermenceAreaFromJson(jsonString);
 
-  StudentPerformance({
-    required this.performanceID,
-    required this.studentID,
-    required this.achievementID,
-    required this.pointsEarned,
-    required this.awardDate,
-    required this.earnedDate,
-    required this.earnedTime,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+import 'dart:convert';
 
-  Map<String, dynamic> toMap() {
-    return {
-      'performanceID': performanceID,
-      'studentID': studentID,
-      'achievementID': achievementID,
-      'pointsEarned': pointsEarned,
-      'awardDate': awardDate.toIso8601String(),
-      'earnedDate': earnedDate.toIso8601String(),
-      'earnedTime': earnedTime.toIso8601String(),
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-    };
-  }
+StudentProfermenceArea studentProfermenceAreaFromJson(String str) => StudentProfermenceArea.fromJson(json.decode(str));
 
-  factory StudentPerformance.fromMap(Map<String, dynamic> map) {
-    return StudentPerformance(
-      performanceID: map['performanceID'],
-      studentID: map['studentID'],
-      achievementID: map['achievementID'],
-      pointsEarned: map['pointsEarned'],
-      awardDate: DateTime.parse(map['awardDate']),
-      earnedDate: DateTime.parse(map['earnedDate']),
-      earnedTime: DateTime.parse(map['earnedTime']),
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
+String studentProfermenceAreaToJson(StudentProfermenceArea data) => json.encode(data.toJson());
+
+class StudentProfermenceArea {
+    int? studentProfileId;
+    int? challengeAreaId;
+    double? grade;
+
+    StudentProfermenceArea({
+        this.studentProfileId,
+        this.challengeAreaId,
+        this.grade,
+    });
+
+    StudentProfermenceArea copyWith({
+        int? studentProfileId,
+        int? challengeAreaId,
+        double? grade,
+    }) => 
+        StudentProfermenceArea(
+            studentProfileId: studentProfileId ?? this.studentProfileId,
+            challengeAreaId: challengeAreaId ?? this.challengeAreaId,
+            grade: grade ?? this.grade,
+        );
+
+    factory StudentProfermenceArea.fromJson(Map<String, dynamic> json) => StudentProfermenceArea(
+        studentProfileId: json["student_profile_id"],
+        challengeAreaId: json["challenge_area_id"],
+        grade: json["grade"]?.toDouble(),
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "student_profile_id": studentProfileId,
+        "challenge_area_id": challengeAreaId,
+        "grade": grade,
+    };
+}
+
+//-----------------------------------------------------------------------
+
+// To parse this JSON data, do
+//
+//     final studentProfermenceEvent = studentProfermenceEventFromJson(jsonString);
+
+
+StudentProfermenceEvent studentProfermenceEventFromJson(String str) => StudentProfermenceEvent.fromJson(json.decode(str));
+
+String studentProfermenceEventToJson(StudentProfermenceEvent data) => json.encode(data.toJson());
+
+class StudentProfermenceEvent {
+    int? studentProfileId;
+    int? challengeAreaId;
+    double? grade;
+
+    StudentProfermenceEvent({
+        this.studentProfileId,
+        this.challengeAreaId,
+        this.grade,
+    });
+
+    StudentProfermenceEvent copyWith({
+        int? studentProfileId,
+        int? challengeAreaId,
+        double? grade,
+    }) => 
+        StudentProfermenceEvent(
+            studentProfileId: studentProfileId ?? this.studentProfileId,
+            challengeAreaId: challengeAreaId ?? this.challengeAreaId,
+            grade: grade ?? this.grade,
+        );
+
+    factory StudentProfermenceEvent.fromJson(Map<String, dynamic> json) => StudentProfermenceEvent(
+        studentProfileId: json["student_profile_id"],
+        challengeAreaId: json["challenge_area_id"],
+        grade: json["grade"]?.toDouble(),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "student_profile_id": studentProfileId,
+        "challenge_area_id": challengeAreaId,
+        "grade": grade,
+    };
 }

@@ -1,57 +1,54 @@
+// To parse this JSON data, do
+//
+//     final area = areaFromJson(jsonString);
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/views/student/student_viewer.dart';
 import 'package:graduation_project_flutter/widgets/custom_glass_card.dart';
 
 
+Area areaFromJson(String str) => Area.fromJson(json.decode(str));
+
+String areaToJson(Area data) => json.encode(data.toJson());
+
 class Area {
-  final int areaID;
-  final int studyPlanID;
-  final int creditHours;
-  final int maxPoints;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String areaName;
-  final String? description;
+    String? areaName;
+    String? description;
+    bool? isActive;
 
-  Area({
-    required this.areaID,
-    required this.studyPlanID,
-    required this.creditHours,
-    required this.maxPoints,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.areaName,
-    this.description,
-  });
+    Area({
+        this.areaName,
+        this.description,
+        this.isActive,
+    });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'areaID': areaID,
-      'studyPlanID': studyPlanID,
-      'creditHours': creditHours,
-      'maxPoints': maxPoints,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'areaName': areaName,
-      'description': description,
-    };
-  }
+    Area copyWith({
+        String? areaName,
+        String? description,
+        bool? isActive,
+    }) => 
+        Area(
+            areaName: areaName ?? this.areaName,
+            description: description ?? this.description,
+            isActive: isActive ?? this.isActive,
+        );
 
-  factory Area.fromMap(Map<String, dynamic> map) {
-    return Area(
-      areaID: map['areaID'],
-      studyPlanID: map['studyPlanID'],
-      creditHours: map['creditHours'],
-      maxPoints: map['maxPoints'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      areaName: map['areaName'],
-      description: map['description'],
+    factory Area.fromJson(Map<String, dynamic> json) => Area(
+        areaName: json["area_name"],
+        description: json["description"],
+        isActive: json["is_active"],
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "area_name": areaName,
+        "description": description,
+        "is_active": isActive,
+    };
 }
 
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Widget buildAreaList(BuildContext context, List<dynamic> data) {
     return ListView.builder(
@@ -60,16 +57,17 @@ Widget buildAreaList(BuildContext context, List<dynamic> data) {
         var areaData = data[i];
         return InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => StudentViewer(
-                        dataOfTopics: areaData,
-                      )));
+              // isStudent ? Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) =>  StudentViewer(
+              //           dataOfTopics: areaData, 
+              //         ))) : Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) => AdminViewer( dataOfTopics: areaData,)));
             },
             child: CustomGlassCard(
               margin: const EdgeInsets.all(15),
               borderRadius: BorderRadius.circular(20),
               height: 150,
-              content: Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   areaData["title"] ?? 'Untitled Area',
@@ -80,3 +78,4 @@ Widget buildAreaList(BuildContext context, List<dynamic> data) {
       },
     );
   }
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project_flutter/constants.dart';
 import 'package:graduation_project_flutter/undefined_route.dart';
+import 'package:graduation_project_flutter/views/authentication/signin_page.dart';
 import 'package:graduation_project_flutter/views/faculty/add_area.dart';
 import 'package:graduation_project_flutter/views/faculty/add_event.dart';
 import 'package:graduation_project_flutter/views/faculty/admin_notifications.dart';
@@ -8,12 +9,13 @@ import 'package:graduation_project_flutter/views/faculty/add_topic.dart';
 import 'package:graduation_project_flutter/views/faculty/admin_home.dart';
 import 'package:graduation_project_flutter/views/student/student_home.dart';
 import 'package:graduation_project_flutter/views/student/student_viewer.dart';
-import 'package:graduation_project_flutter/widgets/custom_btm_nvg_bar.dart';
 
 
 void main() {
   runApp(const MyApp());
 }
+
+bool isStudent = false;
 // Define a global variable for your gradient
 const globalBackgroundGradient = BoxDecoration(
   gradient: LinearGradient(
@@ -118,8 +120,8 @@ class _MyAppState extends State<MyApp> {
       //END APP THEMES
 
       home:
-          // const RegistrationPage(),
-          const CustomBtmNvgBar(),
+          const SignInPage(),
+          // const CustomBtmNvgBar(),
       routes: {
         //Admin pages
         "admin_home": (context) => const AdminHome(),

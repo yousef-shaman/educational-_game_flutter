@@ -60,6 +60,7 @@ class _AddAreaState extends State<AddArea> {
               const SizedBox(height: 30), //Some spacing between the fields
               CustomTextFormField(
                 maxLines: 4,
+                keyboardType: TextInputType.multiline,
                 labelText: 'Area Description',
                 hintText: 'Enter the Area Description',
                 controller: _areaDescriptionController,

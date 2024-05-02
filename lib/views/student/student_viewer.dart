@@ -34,8 +34,9 @@ final ChallingesBuilder challinges = ChallingesBuilder();
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) => _onWillPop(context),
       child: DefaultTabController(
         length: 3,
         initialIndex: 0,

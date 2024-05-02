@@ -1,56 +1,62 @@
+// To parse this JSON data, do
+//
+//     final event = eventFromJson(jsonString);
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
+Event eventFromJson(String str) => Event.fromJson(json.decode(str));
+
+String eventToJson(Event data) => json.encode(data.toJson());
+
 class Event {
-  final int eventID;
-  final int facultyDepartmentID;
-  final DateTime startTime;
-  final DateTime endTime;
-  final int totalPoints;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String eventName;
-  final String? description;
+    String? eventName;
+    String? description;
+    bool? isActive;
+    DateTime? dateStart;
+    DateTime? dateEnd;
 
-  Event({
-    required this.eventID,
-    required this.facultyDepartmentID,
-    required this.startTime,
-    required this.endTime,
-    required this.totalPoints,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.eventName,
-    this.description,
-  });
+    Event({
+        this.eventName,
+        this.description,
+        this.isActive,
+        this.dateStart,
+        this.dateEnd,
+    });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'eventID': eventID,
-      'facultyDepartmentID': facultyDepartmentID,
-      'startTime': startTime.toIso8601String(),
-      'endTime': endTime.toIso8601String(),
-      'totalPoints': totalPoints,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
-      'eventName': eventName,
-      'description': description,
-    };
-  }
+    Event copyWith({
+        String? eventName,
+        String? description,
+        bool? isActive,
+        DateTime? dateStart,
+        DateTime? dateEnd,
+    }) => 
+        Event(
+            eventName: eventName ?? this.eventName,
+            description: description ?? this.description,
+            isActive: isActive ?? this.isActive,
+            dateStart: dateStart ?? this.dateStart,
+            dateEnd: dateEnd ?? this.dateEnd,
+        );
 
-  factory Event.fromMap(Map<String, dynamic> map) {
-    return Event(
-      eventID: map['eventID'],
-      facultyDepartmentID: map['facultyDepartmentID'],
-      startTime: DateTime.parse(map['startTime']),
-      endTime: DateTime.parse(map['endTime']),
-      totalPoints: map['totalPoints'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      eventName: map['eventName'],
-      description: map['description'],
+    factory Event.fromJson(Map<String, dynamic> json) => Event(
+        eventName: json["event_name"],
+        description: json["description"],
+        isActive: json["is_active"],
+        dateStart: json["date_start"] == null ? null : DateTime.parse(json["date_start"]),
+        dateEnd: json["date_end"] == null ? null : DateTime.parse(json["date_end"]),
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "event_name": eventName,
+        "description": description,
+        "is_active": isActive,
+        "date_start": dateStart?.toIso8601String(),
+        "date_end": dateEnd?.toIso8601String(),
+    };
 }
+
 
 
 Widget buildEventTab() {
