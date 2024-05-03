@@ -18,7 +18,7 @@ class CustomGlassCard extends StatelessWidget {
     BorderRadiusGeometry? borderRadius,
     this.padding,
     this.margin,
-  })  : borderRadius = borderRadius ?? BorderRadius.zero;
+  })  : borderRadius = borderRadius ?? const BorderRadius.all(Radius.circular(25));
 
   @override
   Widget build(BuildContext context) {

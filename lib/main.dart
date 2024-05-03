@@ -10,7 +10,6 @@ import 'package:graduation_project_flutter/views/faculty/admin_home.dart';
 import 'package:graduation_project_flutter/views/student/student_home.dart';
 import 'package:graduation_project_flutter/views/student/student_viewer.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -39,6 +38,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       //APP THEMES
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0e79b2))
@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Montserrat',
         brightness: Brightness.light,
         
+        //BottomNavigationBar Theme
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor:  Color(0xffFFFFFF),
           selectedIconTheme: IconThemeData(color: Color(0xff0e79b2), size: 30,),
@@ -56,14 +57,14 @@ class _MyAppState extends State<MyApp> {
 
         //AppBar Theme
         appBarTheme: const AppBarTheme(
-            iconTheme: IconThemeData(color: Color(0xff191923)),
-            elevation: 0.0,
-            // backgroundColor: Colors.transparent,
-            titleTextStyle: TextStyle(
-                color: Color(0xff191923),
-                fontWeight: FontWeight.bold,
-                fontSize: 23)),
-
+          iconTheme: IconThemeData(color: Color(0xff191923)),
+          elevation: 0.0,
+          // backgroundColor: Colors.transparent,
+          titleTextStyle: TextStyle(
+              color: Color(0xff191923),
+              fontWeight: FontWeight.bold,
+              fontSize: 23)),
+        
         //TabBar Theme
         tabBarTheme: const TabBarTheme(
           labelColor: Colors.black, // Color of the text for selected tabs
@@ -81,19 +82,6 @@ class _MyAppState extends State<MyApp> {
             fontSize: 18.0, // Size of the text for unselected tabs
           ),
         ),
-
-        //Text Theme
-        textTheme: const TextTheme(
-            labelLarge: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-            ),
-            displayLarge: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 26.0,
-            )),
 
         //List Tile Theme
         listTileTheme: const ListTileThemeData(
@@ -135,8 +123,7 @@ class _MyAppState extends State<MyApp> {
         "viewer_page": (context) => const StudentViewer(),
       },
       onUnknownRoute: (settings) {
-        // This is where you can handle any routes that are not defined
-        // It's like a "catch-all" for routes
+        // This is any routes that are not defined, It's like a "catch-all" for routes
         return MaterialPageRoute(
             builder: (context) => const UndefinedRoutePage());
       },

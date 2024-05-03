@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
 // import 'package:get/get.dart';
 
 class StudentSettings extends StatefulWidget {

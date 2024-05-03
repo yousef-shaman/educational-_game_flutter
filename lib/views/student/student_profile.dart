@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_flutter/constants.dart';
 import 'package:graduation_project_flutter/views/student/student_settings.dart';
-import 'package:graduation_project_flutter/widgets/custom_glass_card.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/grid_view.dart';
+import 'package:graduation_project_flutter/widgets/progresbar.dart';
 
 class StudentProfile extends StatefulWidget {
   const StudentProfile({super.key});
@@ -10,135 +12,79 @@ class StudentProfile extends StatefulWidget {
   State<StudentProfile> createState() => _StudentProfileState();
 }
 
-class _StudentProfileState extends State<StudentProfile>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
       body: ListView(
         children: [
-          //Frist part
-          CustomGlassCard(
-            width: 250,
-            // padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.all(10),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 5, 24, 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildHeader(context),
-                  const SizedBox(height: 24),
-                  _buildProfileImage(context),
-                  const SizedBox(height: 24),
-                  // _buildProgressIndicator(),
-                ],
-              ),
+          // First part
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 24),
+                // Assuming _buildProfileCard is defined elsewhere
+                _buildProfileCard(context),
+              ],
             ),
           ),
-          //Second part
-          SizedBox(
-            height: 500, // Give a fixed height to the container
-            child: DefaultTabController(
-                length: 2,
-                initialIndex: 0,
-                child: Scaffold(
-                  backgroundColor: Colors.transparent,
-                  extendBody: true,
-                  appBar: AppBar(
-                    elevation: 0,
-                    backgroundColor:
-                        Colors.transparent, //const Color(0xfff1faee),
-                    toolbarHeight:
-                        30, // Adjusted to give enough space for the tabs
-                    bottom: const TabBar(
-                      labelStyle:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                      unselectedLabelStyle: TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      tabs: [
-                        Tab(child: Text("Data")),
-                        Tab(child: Text("Massar")),
-                      ],
-                    ),
-                  ),
-                  body: const TabBarView(
-                    children: [
-                      // First tab content
-                      Center(
-                        child: Text(
-                          "Data",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xff191923),
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                      // Second tab content
-                      Center(
-                        child: Text(
-                          "Massar",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xff191923),
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+
+          // Second part
+          const Center(child: Text('PERFORMANCE', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))),
+          const Padding(
+            padding: EdgeInsets.all(25.0),
+            child: CustomGridB(),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text('Student Profile', style: TextStyle(color: Color(0xff191923))),
-        IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const StudentSettings()));
-            },
-            icon: const Icon(Icons.settings, color: Color(0xff191923))),
-      ],
-    );
-  }
 
-  Widget _buildProfileImage(BuildContext context) {
-    return const Column(
+
+
+  Widget _buildProfileCard(BuildContext context) {
+    late double percentange = 0.3;
+    return Column(
       children: [
-        CircleAvatar(
-          radius: 48,
-          backgroundImage: AssetImage("images/man_4140048.png"),
+
+        //Frist part
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Student Profile', style: labelSmall),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const StudentSettings()));
+                },
+                icon: const Icon(Icons.settings, color: Color(0xff191923))),
+          ],
         ),
-        SizedBox(height: 15),
-        Text('SOMEONE OUTSIDER',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xff191923))),
+
+        const SizedBox(height: 24),
+
+        //Second part
+        Column(
+          children: [
+            const CircleAvatar(
+              radius: 48,
+              backgroundImage: AssetImage("images/man_4140048.png"),
+            ),
+            const SizedBox(height: 15),
+            const Text('SOMEONE OUTSIDER', style: labelMediem),
+            const SizedBox(height: 15),
+            CustomProgresBar(
+              width: 200,
+              height: 25,
+              progres: percentange,
+            ),
+            const SizedBox(height: 10),
+            const Text('To the next level', style: labelElse),
+          ],
+        ),
       ],
     );
   }

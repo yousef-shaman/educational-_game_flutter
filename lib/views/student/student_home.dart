@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/controllers/api_service.dart';
-import 'package:graduation_project_flutter/models/area.dart';
-import 'package:graduation_project_flutter/models/event.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
-import 'package:graduation_project_flutter/widgets/custom_network_aware.dart';
+import 'package:graduation_project_flutter/build/bld_area.dart';
+import 'package:graduation_project_flutter/build/bld_event.dart';
+import 'package:graduation_project_flutter/services/api_service.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/network_aware.dart';
 
 
 class StudentHome extends StatefulWidget {

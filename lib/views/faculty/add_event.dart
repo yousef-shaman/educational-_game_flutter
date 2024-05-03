@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/widgets/custom_date_picker.dart';
-import 'package:graduation_project_flutter/widgets/custom_dropdown.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
-import 'package:graduation_project_flutter/widgets/custom_text_form_field.dart';
+import 'package:graduation_project_flutter/widgets/date_picker.dart';
+import 'package:graduation_project_flutter/widgets/dropdown.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/text_form_field.dart';
 
 class AddEvent extends StatefulWidget {
   const AddEvent({super.key});

@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graduation_project_flutter/controllers/api_service.dart';
+import 'package:graduation_project_flutter/services/api_service.dart';
 import 'package:graduation_project_flutter/controllers/network_controller.dart';
 import 'package:graduation_project_flutter/views/faculty/admin_notificationd_details.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
-import 'package:graduation_project_flutter/widgets/custom_network_aware.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/network_aware.dart';
 
 class AdminNotifications extends StatelessWidget {
   AdminNotifications({super.key});

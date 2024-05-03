@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:graduation_project_flutter/models/challenge.dart';
-import 'package:graduation_project_flutter/models/topic.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
+import 'package:graduation_project_flutter/build/bld_challenge.dart';
+import 'package:graduation_project_flutter/build/bld_topic.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
 
 class StudentViewer extends StatefulWidget {
   final Map<String, dynamic>? dataOfTopics;

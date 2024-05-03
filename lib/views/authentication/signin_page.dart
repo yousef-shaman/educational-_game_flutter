@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/controllers/api_service.dart';
+import 'package:graduation_project_flutter/services/auth_service.dart';
 import 'package:graduation_project_flutter/views/authentication/registration_page.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
-import 'package:graduation_project_flutter/widgets/custom_text_form_field.dart';
+import 'package:graduation_project_flutter/widgets/btm_nvg_bar.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/text_form_field.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -15,14 +16,19 @@ class _SignInPageState extends State<SignInPage> {
   // Initialize the TextEditingController instances.
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final authUser = APIService();
+  final authUser = APIAuth();
   bool isLoad = false;
 
   void logIn(){
     setState(() => isLoad = true);
     authUser.logIn(_usernameController.text, _passwordController.text).then((value) {
       if (value){
-        print('hi there');
+        // getData(role);
+        // if (role == 'A'){
+
+        // }
+
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const CustomBtmNvgBar()));
       }
       else {
 

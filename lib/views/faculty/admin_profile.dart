@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_flutter/constants.dart';
+import 'package:graduation_project_flutter/utilities/jwt_decoder.dart';
+import 'package:graduation_project_flutter/utilities/local_storge.dart';
 import 'package:graduation_project_flutter/views/student/student_settings.dart';
-import 'package:graduation_project_flutter/widgets/custom_glass_card.dart';
-import 'package:graduation_project_flutter/widgets/custom_gradient_scaffold.dart';
+import 'package:graduation_project_flutter/widgets/glass_card.dart';
+import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
 
 class AdminProfilePage extends StatefulWidget {
   const AdminProfilePage({super.key});
@@ -42,11 +45,30 @@ class _AdminProfilePageState extends State<AdminProfilePage>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  
                   _buildHeader(context),
                   const SizedBox(height: 24),
                   _buildProfileImage(context),
                   const SizedBox(height: 24),
-                  // _buildProgressIndicator(),
+                  const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () async {
+                  // Here you would typically call a method that handles user authentication,
+                  // like so:
+                  // signInUser(_usernameController.text, _passwordController.text);
+                  String? token = await getData(accessToken);
+                  int id = decodeToken(token!);
+
+                  print(id);
+
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  shape: const StadiumBorder(),
+                ),
+                child: const Text('Sign in'),
+              ),
                 ],
               ),
             ),
@@ -119,7 +141,7 @@ class _AdminProfilePageState extends State<AdminProfilePage>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Admin Profile', style: TextStyle(color: Color(0xff191923))),
+        const Text('Admin Profile', style: labelLarge),
         IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -138,9 +160,7 @@ class _AdminProfilePageState extends State<AdminProfilePage>
           backgroundImage: AssetImage("images/man_4139993.png"),
         ),
         SizedBox(height: 15),
-        Text('somebody insider',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xff191923))),
+        Text('somebody insider', style: labelMediem),
       ],
     );
   }
