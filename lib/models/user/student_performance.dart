@@ -11,37 +11,101 @@ String studentProfermenceAreaToJson(StudentProfermenceArea data) => json.encode(
 class StudentProfermenceArea {
     int? studentProfileId;
     int? challengeAreaId;
-    double? grade;
+    int? grade;
+    bool? isCompleted;
 
     StudentProfermenceArea({
         this.studentProfileId,
         this.challengeAreaId,
         this.grade,
+        this.isCompleted,
     });
 
     StudentProfermenceArea copyWith({
         int? studentProfileId,
         int? challengeAreaId,
-        double? grade,
+        int? grade,
+        bool? isCompleted,
     }) => 
         StudentProfermenceArea(
             studentProfileId: studentProfileId ?? this.studentProfileId,
             challengeAreaId: challengeAreaId ?? this.challengeAreaId,
             grade: grade ?? this.grade,
+            isCompleted: isCompleted ?? this.isCompleted,
         );
 
     factory StudentProfermenceArea.fromJson(Map<String, dynamic> json) => StudentProfermenceArea(
         studentProfileId: json["student_profile_id"],
         challengeAreaId: json["challenge_area_id"],
-        grade: json["grade"]?.toDouble(),
+        grade: json["grade"]?.toInt(),
+        isCompleted: json["is_completed"],
     );
 
     Map<String, dynamic> toJson() => {
         "student_profile_id": studentProfileId,
         "challenge_area_id": challengeAreaId,
         "grade": grade,
+        "is_completed": isCompleted,
     };
 }
+
+// To parse this JSON data, do
+//
+//     final getStudentProfermenceArea = getStudentProfermenceAreaFromJson(jsonString);
+
+
+List<GetStudentProfermenceArea> getStudentProfermenceAreaFromJson(String str) => List<GetStudentProfermenceArea>.from(json.decode(str).map((x) => GetStudentProfermenceArea.fromJson(x)));
+
+String getStudentProfermenceAreaToJson(List<GetStudentProfermenceArea> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class GetStudentProfermenceArea {
+    int? id;
+    int? studentProfileId;
+    int? challengeAreaId;
+    double? grade;
+    bool? isCompleted;
+
+    GetStudentProfermenceArea({
+        this.id,
+        this.studentProfileId,
+        this.challengeAreaId,
+        this.grade,
+        this.isCompleted,
+    });
+
+    GetStudentProfermenceArea copyWith({
+        int? id,
+        int? studentProfileId,
+        int? challengeAreaId,
+        double? grade,
+        bool? isCompleted,
+    }) => 
+        GetStudentProfermenceArea(
+            id: id ?? this.id,
+            studentProfileId: studentProfileId ?? this.studentProfileId,
+            challengeAreaId: challengeAreaId ?? this.challengeAreaId,
+            grade: grade ?? this.grade,
+            isCompleted: isCompleted ?? this.isCompleted,
+        );
+
+    factory GetStudentProfermenceArea.fromJson(Map<String, dynamic> json) => GetStudentProfermenceArea(
+        id: json["id"],
+        studentProfileId: json["student_profile_id"],
+        challengeAreaId: json["challenge_area_id"],
+        grade: json["grade"]?.toDouble(),
+        isCompleted: json["is_completed"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "student_profile_id": studentProfileId,
+        "challenge_area_id": challengeAreaId,
+        "grade": grade,
+        "is_completed": isCompleted,
+    };
+}
+
+
 
 //-----------------------------------------------------------------------
 

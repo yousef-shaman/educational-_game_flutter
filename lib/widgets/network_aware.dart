@@ -26,6 +26,7 @@ class NetworkAwareWidget<T> extends StatelessWidget {
         return DataBuilderWidget<T>(
           future: fetchData(),
           dataBuilder: (context, data) => data != null ? dataBuilder(context, data) : const Center(child: Text('No data found')),
+          
         );
       } else {
         // Show a message when there's no internet connection

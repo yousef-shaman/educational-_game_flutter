@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/constants.dart';
-import 'package:graduation_project_flutter/undefined_route.dart';
-import 'package:graduation_project_flutter/views/authentication/signin_page.dart';
-import 'package:graduation_project_flutter/views/faculty/add_area.dart';
-import 'package:graduation_project_flutter/views/faculty/add_event.dart';
-import 'package:graduation_project_flutter/views/faculty/admin_notifications.dart';
-import 'package:graduation_project_flutter/views/faculty/add_topic.dart';
-import 'package:graduation_project_flutter/views/faculty/admin_home.dart';
-import 'package:graduation_project_flutter/views/student/student_home.dart';
-import 'package:graduation_project_flutter/views/student/student_viewer.dart';
+import 'package:flutter/services.dart';
+import 'package:graduation_project_flutter/widgets/btm_nvg_bar.dart';
+import 'constants/colors.dart';
+import 'forms/area_form.dart';
+import 'undefined_route.dart';
+import 'utilities/local_storge.dart';
+import 'views/authentication/signin_page.dart';
+import 'forms/add_topic.dart';
+import 'views/screen/homepage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeGlobals(); // Initialize global variables
+  // Optional: Set preferred orientations
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+      runApp(const MyApp());
+    });
 }
 
-bool isStudent = false;
+// Initialize global variables
+Future<void> initializeGlobals() async {
+  await getData('role');  // This will update the global userRole variable
+}
+
 // Define a global variable for your gradient
 const globalBackgroundGradient = BoxDecoration(
   gradient: LinearGradient(
     transform: GradientRotation(50),
-
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [neutralA, neutralB], // Your gradient colors here
   ),
 );
+
 class MyApp extends StatefulWidget {
-  const MyApp({
-    super.key,
-  });
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,92 +45,110 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-      //APP THEMES
+      debugShowCheckedModeBanner: false,
+
+      // App Themes
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0e79b2))
             .copyWith(background: const Color(0xffFFFFFF)),
         primaryColor: const Color(0xffFFFFFF),
         scaffoldBackgroundColor: Colors.transparent,
-        fontFamily: 'Montserrat',
+        fontFamily: 'DejaVu Sans',
         brightness: Brightness.light,
-        
-        //BottomNavigationBar Theme
+
+        // BottomNavigationBar Theme
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor:  Color(0xffFFFFFF),
-          selectedIconTheme: IconThemeData(color: Color(0xff0e79b2), size: 30,),
-          selectedLabelStyle: TextStyle(color: Color(0xff0e79b2), fontWeight: FontWeight.bold),
+          backgroundColor: Color(0xffFFFFFF),
+          selectedIconTheme: IconThemeData(
+            color: Color(0xff0e79b2),
+            size: 30,
+          ),
+          selectedLabelStyle:
+              TextStyle(color: Color(0xff0e79b2), fontWeight: FontWeight.bold),
         ),
 
-        //AppBar Theme
+        // AppBar Theme
         appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          toolbarHeight: 70,
           iconTheme: IconThemeData(color: Color(0xff191923)),
           elevation: 0.0,
-          // backgroundColor: Colors.transparent,
           titleTextStyle: TextStyle(
-              color: Color(0xff191923),
-              fontWeight: FontWeight.bold,
-              fontSize: 23)),
-        
-        //TabBar Theme
-        tabBarTheme: const TabBarTheme(
-          labelColor: Colors.black, // Color of the text for selected tabs
-          unselectedLabelColor:
-              Colors.grey, // Color of the text for unselected tabs
-          indicator: BoxDecoration(
-            border:
-                Border(bottom: BorderSide(color: Colors.transparent, width: 0)),
-          ),
-          labelStyle: TextStyle(
-            fontSize: 20.0, // Size of the text for selected tabs
-            fontWeight: FontWeight.bold, // Weight of the text for selected tabs
-          ),
-          unselectedLabelStyle: TextStyle(
-            fontSize: 18.0, // Size of the text for unselected tabs
+            color: Color(0xff191923),
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
           ),
         ),
 
-        //List Tile Theme
+        // TabBar Theme
+        tabBarTheme: const TabBarTheme(
+          // dividerHeight: 200,
+          labelColor: Colors.black, // Color of the text for selected tabs
+          unselectedLabelColor: Colors.grey, // Color of the text for unselected tabs
+          indicator: BoxDecoration(
+            border: Border(bottom: BorderSide.none),
+          ),
+          labelStyle: TextStyle(
+            fontSize: 20.0,
+            wordSpacing: 10, // Size of the text for selected tabs
+            fontWeight: FontWeight.w900, // Weight of the text for selected tabs
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontSize: 16.0, // Size of the text for unselected tabs
+          ),
+        ),
+
+        // List Tile Theme
         listTileTheme: const ListTileThemeData(
           contentPadding: EdgeInsets.all(15),
-          textColor: Color(0xffFAF2E1),
+          textColor: Color.fromARGB(255, 0, 0, 0),
           style: ListTileStyle.list,
         ),
 
-        //Elevated Button Theme
+        // Elevated Button Theme
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                foregroundColor:
-                    const MaterialStatePropertyAll(Color(0xff00798c)),
-                backgroundColor:
-                    const MaterialStatePropertyAll(Color(0xffFAF2E1)),
-                padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 16.0)),
-                shape: MaterialStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ))),
+          style: ButtonStyle(
+            foregroundColor: const MaterialStatePropertyAll(Color(0xff00798c)),
+            backgroundColor: const MaterialStatePropertyAll(Color(0xffFAF2E1)),
+            padding: const MaterialStatePropertyAll(
+                EdgeInsets.symmetric(vertical: 16.0)),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          ),
+        ),
       ),
-      //END APP THEMES
+      // End App Themes
 
-      home:
-          const SignInPage(),
-          // const CustomBtmNvgBar(),
+      home: FutureBuilder<bool>(
+        future: isLoggedIn(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(); // or some splash screen
+          } else {
+            if (snapshot.hasError) {
+              return const Text('Error: Could not determine login status');
+            } else {
+              // Check if logged in
+              return snapshot.data! ? const CustomBtmNvgBar() : const SignInPage();
+            }
+          }
+        },
+      ),
+
       routes: {
-        //Admin pages
-        "admin_home": (context) => const AdminHome(),
-        "admin_notifications": (context) => AdminNotifications(),
-        "add_area": (context) => const AddArea(),
-        "add_event": (context) => const AddEvent(),
+        // Staff pages
+        "add_area": (context) => const AreaForm(),
+        // "add_event": (context) => const AddEvent(),
         "add_topic": (context) => const AddTopic(),
 
-        //student pages
-        "home_page": (context) => const StudentHome(),
-        "viewer_page": (context) => const StudentViewer(),
+        // Student pages
+        "home_page": (context) => const Homepage(),
       },
       onUnknownRoute: (settings) {
-        // This is any routes that are not defined, It's like a "catch-all" for routes
+        // This is for any routes that are not defined, acting as a "catch-all" for routes
         return MaterialPageRoute(
             builder: (context) => const UndefinedRoutePage());
       },

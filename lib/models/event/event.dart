@@ -9,6 +9,8 @@ Event eventFromJson(String str) => Event.fromJson(json.decode(str));
 String eventToJson(Event data) => json.encode(data.toJson());
 
 class Event {
+    int? adminProfile;
+    int? facultyDepartment;
     String? eventName;
     String? description;
     bool? isActive;
@@ -16,6 +18,8 @@ class Event {
     DateTime? dateEnd;
 
     Event({
+        this.adminProfile,
+        this.facultyDepartment,
         this.eventName,
         this.description,
         this.isActive,
@@ -24,6 +28,8 @@ class Event {
     });
 
     Event copyWith({
+        int? adminProfile,
+        int? facultyDepartment,
         String? eventName,
         String? description,
         bool? isActive,
@@ -31,6 +37,8 @@ class Event {
         DateTime? dateEnd,
     }) => 
         Event(
+            adminProfile: adminProfile ?? this.adminProfile,
+            facultyDepartment: facultyDepartment ?? this.facultyDepartment,
             eventName: eventName ?? this.eventName,
             description: description ?? this.description,
             isActive: isActive ?? this.isActive,
@@ -39,6 +47,8 @@ class Event {
         );
 
     factory Event.fromJson(Map<String, dynamic> json) => Event(
+        adminProfile: json["admin_profile"],
+        facultyDepartment: json["faculty_department"],
         eventName: json["event_name"],
         description: json["description"],
         isActive: json["is_active"],
@@ -47,6 +57,8 @@ class Event {
     );
 
     Map<String, dynamic> toJson() => {
+        "admin_profile": adminProfile,
+        "faculty_department": facultyDepartment,
         "event_name": eventName,
         "description": description,
         "is_active": isActive,
@@ -54,4 +66,3 @@ class Event {
         "date_end": dateEnd?.toIso8601String(),
     };
 }
-

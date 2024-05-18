@@ -69,3 +69,37 @@ class LoginUser {
 }
 
 
+// To parse this JSON data, do
+//
+//     final logoutUser = logoutUserFromJson(jsonString);
+
+
+LogoutUser logoutUserFromJson(String str) => LogoutUser.fromJson(json.decode(str));
+
+String logoutUserToJson(LogoutUser data) => json.encode(data.toJson());
+
+class LogoutUser {
+    String? refreshToken;
+
+    LogoutUser({
+        this.refreshToken,
+    });
+
+    LogoutUser copyWith({
+        String? refreshToken,
+    }) => 
+        LogoutUser(
+            refreshToken: refreshToken ?? this.refreshToken,
+        );
+
+    factory LogoutUser.fromJson(Map<String, dynamic> json) => LogoutUser(
+        refreshToken: json["refresh_token"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "refresh_token": refreshToken,
+    };
+}
+
+
+

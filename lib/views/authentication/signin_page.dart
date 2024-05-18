@@ -5,6 +5,8 @@ import 'package:graduation_project_flutter/widgets/btm_nvg_bar.dart';
 import 'package:graduation_project_flutter/widgets/gradient_scaffold.dart';
 import 'package:graduation_project_flutter/widgets/text_form_field.dart';
 
+import '../../constants/text_style.dart';
+
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -14,33 +16,25 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   // Initialize the TextEditingController instances.
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final authUser = APIAuth();
   bool isLoad = false;
 
-  void logIn(){
+  void logIn() {
     setState(() => isLoad = true);
-    authUser.logIn(_usernameController.text, _passwordController.text).then((value) {
-      if (value){
-        // getData(role);
-        // if (role == 'A'){
-
-        // }
-
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const CustomBtmNvgBar()));
-      }
-      else {
-
-      }
+    authUser
+        .logIn(_emailController.text, _passwordController.text)
+        .then((value) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const CustomBtmNvgBar()));
     });
   }
-  
 
   @override
   void dispose() {
     // Dispose the controllers when the widget is removed from the widget tree.
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose(); // Call the superclass dispose method last.
   }
@@ -55,32 +49,26 @@ class _SignInPageState extends State<SignInPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('SIGN IN',
+              const Text('SIGN IN',
                   textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.displayLarge),
+                  style: labelHuge),
               const SizedBox(height: 40),
               CustomTextFormField(
-                labelText: 'Username',
-                hintText: 'Enter your username',
-                controller: _usernameController,
-                keyboardType: TextInputType.emailAddress,
+                labelText: 'Email',
+                hintText: 'Enter your email',
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress, maxLength: 255,
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
                 labelText: 'Password',
                 hintText: 'Enter your password',
                 obscureText: true,
-                controller: _passwordController,
+                controller: _passwordController, maxLength: 68,
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {
-                  // Here you would typically call a method that handles user authentication,
-                  // like so:
-                  // signInUser(_usernameController.text, _passwordController.text);
-                  logIn();
-
-                },
+                onPressed: () => logIn(),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black,

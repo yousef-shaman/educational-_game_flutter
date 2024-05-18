@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/constants.dart';
+import 'package:graduation_project_flutter/constants/colors.dart';
+
 
 class OptionCard extends StatelessWidget {
   const OptionCard({
@@ -21,7 +22,7 @@ class OptionCard extends StatelessWidget {
             fontSize: 18.0,
             // we will decide if the 'color' we are receiving here.
             // what ratio of the 'red' and 'green' colors are in it.
-            color: color.red != color.green ? neutralB : Colors.black,
+            color: color.red != color.green ? neutralA : Colors.black,
           ),
         ),
       ),

@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 class CustomDatePickerField extends StatefulWidget {
   final String labelText;
   final String hintText;
+  final TextEditingController? controller;
+  final VoidCallback? externalOnTap;  // Renamed for clarity
+
   const CustomDatePickerField({
     super.key,
     required this.labelText,
-    required this.hintText,
+    required this.hintText, 
+    this.controller, 
+    this.externalOnTap,  // Renamed for clarity
   });
 
   @override
@@ -14,7 +19,21 @@ class CustomDatePickerField extends StatefulWidget {
 }
 
 class _CustomDatePickerFieldState extends State<CustomDatePickerField> {
-  final TextEditingController _controller = TextEditingController();
+  late TextEditingController _internalController;
+
+  @override
+  void initState() {
+    super.initState();
+    _internalController = widget.controller ?? TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    if (widget.controller == null) {
+      _internalController.dispose();  // Only dispose if it's internally managed
+    }
+    super.dispose();
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -25,37 +44,30 @@ class _CustomDatePickerFieldState extends State<CustomDatePickerField> {
     );
     if (picked != null && picked != DateTime.now()) {
       setState(() {
-        _controller.text = "${picked.toLocal()}".split(' ')[0];
+        _internalController.text = "${picked.toLocal()}".split(' ')[0];
       });
     }
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _selectDate(context),
+      onTap: widget.externalOnTap ?? () => _selectDate(context), // Use provided onTap if not null, otherwise use internal
       child: IgnorePointer(
         child: TextFormField(
-          style: const TextStyle(color: Color(0xffFAF2E1)),
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: widget.labelText,
-              hintText: widget.hintText,
-              suffixIcon: const Icon(Icons.calendar_today),
-              border: const OutlineInputBorder(),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red, width: 1.0),
-              ),
-            )),
+          style: const TextStyle(color: Colors.black),
+          controller: _internalController, // Use the correct controller
+          decoration: InputDecoration(
+            labelText: widget.labelText,
+            hintText: widget.hintText,
+            suffixIcon: const Icon(Icons.calendar_today),
+            border: const OutlineInputBorder(),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 1.0),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
-
-

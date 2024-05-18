@@ -1,80 +1,97 @@
-
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/widgets/glass_card.dart';
+import 'package:graduation_project_flutter/constants/text_style.dart';
+import 'package:graduation_project_flutter/models/area/ar_topic.dart';
+import 'package:graduation_project_flutter/views/screen/content_of_topic.dart';
+import '../../utilities/permissions.dart';
 
-class TopicBuilder {
+class TopicListWidget extends StatefulWidget {
+  final List<GetTopicArea> data;
 
-  Widget buildTopicTab(BuildContext context, {Map? dataOfTopics}) {
-    
-    if (dataOfTopics == null) {
-      return const Center(
-          child: Text("No data provided.",
-              style: TextStyle(
-                  color: Color(0xff191923),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600)));
-    }
-    return ListView(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(20),
-          child: Text(
-            dataOfTopics["title"] ?? "No Title",
-            style: const TextStyle(
-                color: Color(0xff191923), fontSize: 22, fontWeight: FontWeight.w900),
-          ),
-        ),
-        CustomGlassCard(
-          margin: const EdgeInsets.all(15),
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                dataOfTopics["body"] ?? "No Content",
-                style: const TextStyle(
-                    color: Color(0xff191923),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),)
-      ],
+  const TopicListWidget({super.key, required this.data});
+
+  @override
+  State<TopicListWidget> createState() => _TopicListWidgetState();
+}
+
+class _TopicListWidgetState extends State<TopicListWidget> {
+  void _showUpdateDeleteDialog(BuildContext context, GetTopicArea topic) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Update or Delete Topic'),
+          content: const Text('Would you like to update or delete this topic?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Navigate to the update topic page
+                Navigator.pushNamed(context, "update_topic", arguments: topic);
+              },
+              child: const Text('Update'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _deleteTopic(context, topic);
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
     );
   }
 
-  Widget buildExamplesTab(BuildContext context, {Map? dataOfTopics}) {
-    
-    if (dataOfTopics == null) {
-      return const Center(
-          child: Text("No data provided.",
-              style: TextStyle(
-                  color: Color(0xff191923),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600)));
+  void _deleteTopic(BuildContext context, GetTopicArea topic) async {
+    try {
+      // await ArTopicServiceAPI().deleteTopic(topic.id!);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Topic deleted successfully')),
+      );
+      setState(() {
+        widget.data.remove(topic);
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to delete topic')),
+      );
     }
-    return ListView(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(20),
-          child: Text(
-            dataOfTopics["title"] ?? "No Title",
-            style: const TextStyle(
-                color: Color(0xff0e79b2), fontSize: 22, fontWeight: FontWeight.w900),
-          ),
-        ),
-        CustomGlassCard(
-          margin: const EdgeInsets.all(15),
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                dataOfTopics["body"] ?? "No Content",
-                style: const TextStyle(
-                    color: Color(0xff0e79b2),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: widget.data.length,
+      itemBuilder: (context, i) {
+        GetTopicArea topicOfAreaData = widget.data[i];
+        return InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  ContentOfTopic(topicId: topicOfAreaData.id!, topicName: topicOfAreaData.topicTitle!),
+            ));
+          },
+          onLongPress: () {
+            if (isSystemAdmin() || isFacultyMember()) {
+              _showUpdateDeleteDialog(context, topicOfAreaData);
+            }
+          },
+          child: Card(
+            elevation: 20,
+            margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+            child: Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Center(
+                child: Text(
+                  topicOfAreaData.topicTitle ?? 'Untitled Topic',
+                  style: labelLarge,
+                ),
               ),
-            ),)
-      ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
+  final int maxLength;
 
   const CustomTextFormField({
     super.key,
@@ -20,20 +21,21 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.onChanged,
-    this.controller, 
+    this.controller,
     this.maxLines = 1,
+    required this.maxLength,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxLength,
       maxLines: maxLines,
       style: TextField.materialMisspelledTextStyle,
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
-
         labelText: labelText,
         hintText: hintText,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,

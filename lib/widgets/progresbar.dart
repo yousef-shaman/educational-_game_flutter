@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_flutter/constants.dart';
+import 'package:graduation_project_flutter/constants/text_style.dart';
 
 class CustomProgresBar extends StatelessWidget {
   final double width;
@@ -23,7 +23,7 @@ class CustomProgresBar extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: width * progres,
+            width: progres,
             height: height,
             decoration: BoxDecoration(
               color: Colors.blue[300],
@@ -33,7 +33,7 @@ class CustomProgresBar extends StatelessWidget {
 
           Align(
             alignment: Alignment.center,
-            child: Text('${(progres*100).toInt()}%', style: labelElse,),
+            child: Text('${(progres).toInt()}', style: labelElse,),
           )
         ],
       ),
