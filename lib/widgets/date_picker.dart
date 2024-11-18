@@ -42,9 +42,9 @@ class _CustomDatePickerFieldState extends State<CustomDatePickerField> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != DateTime.now()) {
+    if (picked != DateTime.now()) {
       setState(() {
-        _internalController.text = "${picked.toLocal()}".split(' ')[0];
+        _internalController.text = "${picked?.toLocal()}".split(' ')[0];
       });
     }
   }

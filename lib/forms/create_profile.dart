@@ -142,12 +142,10 @@ class _CreateProfileState extends State<CreateProfile> {
       firstDate: DateTime(1965),
       lastDate: DateTime(2014),
     );
-    if (picked != null) {
-      setState(() {
-        _birthDateController.text = "${picked.toLocal()}".split(' ')[0];
-      });
+    setState(() {
+      _birthDateController.text = "${picked?.toLocal()}".split(' ')[0];
+    });
     }
-  }
 
   @override
   void dispose() {

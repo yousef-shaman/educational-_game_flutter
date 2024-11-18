@@ -9,8 +9,8 @@ Future<String?> getData(String key) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   // return prefs.getString(key);
   String? value = prefs.getString(key);
-  if (key == 'role' && value != null) {
-    userRole = value;
+  if (key == 'role') {
+    userRole = value!;
   }
   return value;
 }
